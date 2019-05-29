@@ -162,6 +162,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        \Xiaohongyang\LaravelCmsAdmin\LaravelCmsAdminServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

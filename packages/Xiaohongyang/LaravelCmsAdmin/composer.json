@@ -1,0 +1,12 @@
+{
+    "name": "xiaohongyang/laravel_cms_admin",
+    "type": "library",
+    "require": {
+    },
+    "authors": [
+        {
+            "name": "xiaohongyang",
+            "email": "258082291@qq.com"
+        }
+    ]
+}
