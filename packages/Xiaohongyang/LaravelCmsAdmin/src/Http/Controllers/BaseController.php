@@ -15,7 +15,7 @@ class BaseController extends Controller {
 
     protected $manager;
 
-    protected $pageAmount = 10;
+    protected $pageAmount = 3;
 
     protected $view_name;
 

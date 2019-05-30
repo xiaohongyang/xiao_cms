@@ -40,6 +40,28 @@ class ArticleTypeController extends BaseController
         return $this->view(['paginator' => $paginator]);
     }
 
+
+    public function search(Request $request){
+
+        $page = $request->get("page",1);
+        $amount = 10;
+        $data = $this->service->getPageList($page, 10);
+
+        $json_data = [
+            'data' => $data->items(),
+            'page' => [
+                'current_page' => $data->currentPage(),
+                'last_page' => $data->lastPage(),
+                'next_page' => $data->nextPageUrl(),
+                'prev_page' => $data->previousPageUrl(),
+                'total' => $data->total()
+            ]
+        ];
+        return response()->json($json_data);
+
+    }
+
+
     public function create(){
 
         $this->view();

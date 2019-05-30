@@ -1,21 +1,39 @@
-@extends('blog::layout.main')
-
-@section('content')
-
-    <?php
-$breadcrumb = [
-	[
-		'text' => '文章管理',
-		'active' => true,
-		'link' => '',
-	],
-];
-?>
-
-	<article-index></article-index>
-
-@endsection
+@extends('cms_admin::layout.main')
 
 
-@section('scripts')
+@section("content")
+	<div class="box-body">
+
+
+
+		<table id="example" class="display" style="width:100%">
+			<theader>
+				<tr>
+					<th>id</th>
+					<th>title</th>
+				</tr>
+
+			</theader>
+			<tbody>
+
+			</tbody>
+
+		</table>
+
+
+		<script type="text/javascript">
+
+            $(document).ready(function(){
+                $('#example').DataTable( {
+                    "ajax": "/json.js",
+                    "columns": [
+                        { "data": "id" },
+                        { "data": "title" },
+                    ]
+                });
+            });
+
+
+		</script>
+	</div>
 @endsection
