@@ -9,7 +9,7 @@
 
 
 @section("content")
-    <div class="box-body">
+    <div class="">
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Monthly Recap Report</h3>
@@ -33,7 +33,6 @@
             </div>
             <div class="box-body">
                 <table class="table table-bordered">
-
                     <tr>
                         <td>
                             id
@@ -47,12 +46,10 @@
                         <td>
                             更新时间
                         </td>
-
                         <td>
                             操作
                         </td>
                     </tr>
-
                     <?php foreach ($paginator as $item) : ?>
                     <tr>
                         <td><?=$item->id?></td>

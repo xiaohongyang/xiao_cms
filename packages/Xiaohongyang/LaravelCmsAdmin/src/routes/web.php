@@ -17,11 +17,10 @@ Route::namespace('Xiaohongyang\LaravelCmsAdmin\Controllers')->group(function(){
             Route::get("/", 'IndexController@index');
             Route::get("/article-type/index", 'ArticleTypeController@index')->name('article_type.index');
             Route::get("/article-type/search", 'ArticleTypeController@search')->name("article_type.search");;
-            Route::get("/article-type/edit", 'ArticleTypeController@edit')->name("article_type.edit");;
+            Route::any("/article-type/edit", 'ArticleTypeController@edit')->name("article_type.edit");;
             Route::get("/article-type/detail", 'ArticleTypeController@detail')->name("article_type.detail");
             Route::get("/article-type/delete", 'ArticleTypeController@delete')->name("article_type.delete");;
-            Route::get("/article-type/create", 'ArticleTypeController@create')->name("article_type.create");
-            Route::post("/article-type/create", 'ArticleTypeController@create')->name("article_type.create");
+            Route::any("/article-type/create", 'ArticleTypeController@create')->name("article_type.create");
 
 
             Route::get("/article/index", 'ArticleController@index');

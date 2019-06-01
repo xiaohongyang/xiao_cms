@@ -136,10 +136,10 @@ desired effect
                 </section>
 
             </div>
-            <div class="box box-success">
+            <div class="">
 
 
-                        @yield("content")
+                @yield("content")
             </div>
         </div>
 

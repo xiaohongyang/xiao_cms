@@ -9,49 +9,20 @@ use Kris\LaravelFormBuilder\Form;
 use Xiaohongyang\LaravelCmsAdmin\Model\ArticleType;
 use Xiaohongyang\LaravelCmsAdmin\Service\ArticleTypeService;
 
-class ArticleTypeCreateForm extends Form
+class ArticleTypeCreateForm extends BaseForm
 {
-
-    /**
-     * @var ArticleTypeService;
-     */
-    protected $service;
-
-    /**
-     * @return ArticleTypeService
-     */
-    public function getService(): ArticleTypeService
-    {
-        if(empty($this->service)){
-            $this->service = new ArticleTypeService(new ArticleType());
-        }
-        return $this->service;
-    }
-
-    /**
-     * @param ArticleTypeService $service
-     */
-    public function setService(ArticleTypeService $service)
-    {
-        $this->service = $service;
-    }
 
 
     public function buildForm()
     {
         $this
+            ->add('id', Field::HIDDEN)
             ->add('title', Field::TEXT, [
                 'rules' => 'required'
             ])
             ->add('desc', Field::TEXTAREA)
             ->add('publish', Field::CHECKBOX);
         $this->add('submit', 'submit');
-    }
-
-    public function save($postData){
-
-        $rs = $this->getService()->create($postData);
-        return $rs;
     }
 
 }

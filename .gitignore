@@ -12,3 +12,4 @@ yarn-error.log
 .idea/
 /public/plugin/AdminLTE-2.4.5
 /resources/AdminLTE-2.4.5
+/composer.lock

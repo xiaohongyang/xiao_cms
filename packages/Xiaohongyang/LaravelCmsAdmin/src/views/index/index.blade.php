@@ -2,7 +2,7 @@
 
 
 @section("content")
-    <div class="box-body">
+    <div class="">
 
         <table id="example" class="display" style="width:100%">
             <theader>

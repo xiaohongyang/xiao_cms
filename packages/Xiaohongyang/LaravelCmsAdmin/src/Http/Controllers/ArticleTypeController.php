@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Kris\LaravelFormBuilder\FormBuilder;
+use Mockery\Generator\Method;
 use Xiaohongyang\LaravelCmsAdmin\Forms\ArticleCreateForm;
 use Xiaohongyang\LaravelCmsAdmin\Forms\ArticleTypeCreateForm;
+use Xiaohongyang\LaravelCmsAdmin\Forms\BaseForm;
 use Xiaohongyang\LaravelCmsAdmin\Model\ArticleType;
 use Xiaohongyang\LaravelCmsAdmin\Service\ArticleTypeService;
 
@@ -39,9 +41,9 @@ class ArticleTypeController extends BaseController
 
         $page = $request->get("page",1);
 
-        DB::enableQueryLog();
+        $this->service->setQueryRelation(['hasManyArticle']);
+        $this->service->setOrderBy("updated_at desc");
         $paginator = $this->service->getPageList($page, $this->pageAmount);
-        print_r(DB::getQueryLog());
 
         return $this->view(['paginator' => $paginator]);
     }
@@ -68,9 +70,17 @@ class ArticleTypeController extends BaseController
     }
 
 
+    /**
+     * @user : xiaohongyang 258082291@qq.com
+     * @param Request $request
+     * @param FormBuilder $formBuilder
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function create(Request $request,FormBuilder $formBuilder){
 
-
+        /**
+         * @var $form BaseForm
+         */
         $form = $formBuilder->create(ArticleTypeCreateForm::class, [
             'method' => 'POST',
             //'url' => route('song.store')
@@ -80,7 +90,7 @@ class ArticleTypeController extends BaseController
 
             if (!$form->isValid()){
                 return redirect()->back()->withErrors($form->getErrors())->withInput();
-            } else if(!$form->save($request->post())){
+            } else if(!$form->create($request->post())){
                 return redirect()->back()->withErrors($form->getService()->getError())->withInput();
             } else {
                 //添加成功跳转到列表页
@@ -93,9 +103,23 @@ class ArticleTypeController extends BaseController
 
 
 
-    public function update(){
+    public function edit(Request $request, FormBuilder $formBuilder){
 
-        $this->view();
+        $id = $request->get('id');
+        $model = $this->service->getModel()->newQuery()->find($id);
+        $form = $formBuilder->create(ArticleTypeCreateForm::class, [
+            'method' => 'POST',
+            'model' => $model
+        ]);
+
+        if($request->isMethod(Request::METHOD_POST)){
+            $this->service->setModel($model);
+            $rs = $this->service->update($request->post());
+            if($rs){
+                return redirect()->route("article_type.index");
+            }
+        }
+        return $this->view(['form' => $form]);
     }
 
     public function delete(){

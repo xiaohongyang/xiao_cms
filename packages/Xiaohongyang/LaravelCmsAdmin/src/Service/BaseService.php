@@ -144,11 +144,7 @@ class BaseService
             if(!empty($options)){
 
                 $options = array_merge($this->getModel()->toArray(), $options);
-
-                $model = $this->getModel();
-                $options = array_filter($options, function($v, $k) use($model){
-                    return in_array($k, $model->getFillable());
-                }, ARRAY_FILTER_USE_BOTH);
+                $options = $this->getFilterAbleData($options);
                 $this->getModel()->setRawAttributes($options);
             }
             $result = $this->model->save();
@@ -158,6 +154,27 @@ class BaseService
             $this->setError($this->getModel()->getError());
         }
         return $result;
+    }
+
+    /**
+     * 获取可填充的字段数组值
+     * @user : xiaohongyang 258082291@qq.com
+     * @param $data
+     * @return array
+     */
+    protected function getFilterAbleData($data){
+
+        if(is_array($data)){
+
+            $model = $this->getModel();
+            $options = array_filter($data, function($v, $k) use($model){
+                return in_array($k, $model->getFillable());
+            }, ARRAY_FILTER_USE_BOTH);
+        } else{
+            $options = [];
+        }
+
+        return $options;
     }
 
     /**
@@ -179,11 +196,13 @@ class BaseService
 
             if(!empty($options)){
                 $options = array_merge($this->getModel()->toArray(), $options);
+                $options = $this->getFilterAbleData($options);
                 $this->getModel()->setRawAttributes($options);
             }
             $result =$this->model->save();
         } catch (\Exception $e){
 
+            Log::error("BaseService Update:", $e);
             $this->setError($e->getMessage());
         }
         return $result;
