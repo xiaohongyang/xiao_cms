@@ -4,6 +4,13 @@ namespace Xiaohongyang\LaravelCmsAdmin\Model;
 
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Class Article
+ * @property id
+ * @property title
+ * @package Xiaohongyang\LaravelCmsAdmin\Model
+ */
+
 class Article extends BaseModel
 {
 

@@ -9,6 +9,7 @@
 namespace Xiaohongyang\LaravelCmsAdmin\Service;
 
 
+use Illuminate\Support\Facades\Log;
 use Xiaohongyang\LaravelCmsAdmin\Model\BaseModel;
 
 class BaseService
@@ -52,8 +53,6 @@ class BaseService
     {
         $this->queryRelation = $queryRelation;
     }
-
-    protected $orderByBinds = [];
 
     /**
      * @return string
@@ -139,18 +138,23 @@ class BaseService
      */
     public function create($options=[]){
 
+
         $result = false;
         try{
             if(!empty($options)){
 
                 $options = array_merge($this->getModel()->toArray(), $options);
+
+                $model = $this->getModel();
+                $options = array_filter($options, function($v, $k) use($model){
+                    return in_array($k, $model->getFillable());
+                }, ARRAY_FILTER_USE_BOTH);
                 $this->getModel()->setRawAttributes($options);
             }
-            print_r($this->getModel()->toArray());
             $result = $this->model->save();
         } catch (\Exception $e){
 
-            $this->setError($e->getMessage());
+            Log::error("BaseService:create", $e);
             $this->setError($this->getModel()->getError());
         }
         return $result;
@@ -257,7 +261,6 @@ class BaseService
         if(!empty($relationArr) && is_array($relationArr)){
 
             foreach ($relationArr as $relation){
-
                 $query->with($relation);
             }
         }

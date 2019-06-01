@@ -4,6 +4,10 @@ namespace Xiaohongyang\LaravelCmsAdmin\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
+use Kris\LaravelFormBuilder\FormBuilder;
+use Xiaohongyang\LaravelCmsAdmin\Forms\ArticleCreateForm;
+use Xiaohongyang\LaravelCmsAdmin\Forms\ArticleTypeCreateForm;
 use Xiaohongyang\LaravelCmsAdmin\Model\ArticleType;
 use Xiaohongyang\LaravelCmsAdmin\Service\ArticleTypeService;
 
@@ -34,8 +38,10 @@ class ArticleTypeController extends BaseController
     public function index(Request $request){
 
         $page = $request->get("page",1);
-        $paginator = $this->service->getPageList($page, $this->pageAmount);
 
+        DB::enableQueryLog();
+        $paginator = $this->service->getPageList($page, $this->pageAmount);
+        print_r(DB::getQueryLog());
 
         return $this->view(['paginator' => $paginator]);
     }
@@ -62,10 +68,30 @@ class ArticleTypeController extends BaseController
     }
 
 
-    public function create(){
+    public function create(Request $request,FormBuilder $formBuilder){
 
-        $this->view();
+
+        $form = $formBuilder->create(ArticleTypeCreateForm::class, [
+            'method' => 'POST',
+            //'url' => route('song.store')
+        ]);
+
+        if($request->isMethod(Request::METHOD_POST)){
+
+            if (!$form->isValid()){
+                return redirect()->back()->withErrors($form->getErrors())->withInput();
+            } else if(!$form->save($request->post())){
+                return redirect()->back()->withErrors($form->getService()->getError())->withInput();
+            } else {
+                //添加成功跳转到列表页
+                return redirect()->to(URL::route("article_type.index"));
+            }
+        }
+
+        return $this->view( ['form'=>$form] );
     }
+
+
 
     public function update(){
 

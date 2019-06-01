@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\Log;
 
 
 /**
+ * Class ArticleType
  * @property int $id
- *
  * @property string $title
- *
+ * @property int parent_id
+ * @property string desc
  * @property timestamp $created_at
- *
  * @property timestamp $updated_at
+ * @package Xiaohongyang\LaravelCmsAdmin\Model
  */
 class ArticleType extends BaseModel
 {
@@ -52,7 +53,6 @@ class ArticleType extends BaseModel
             }
         });
     }
-
 
     public $insertDataRule = [
         'title' => ['required']
