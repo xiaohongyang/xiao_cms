@@ -1,4 +1,4 @@
-@extends('cms_admin::layout.main')
+@extends('cms_admin::layout.main_no_layout')
 
 
 @section("content")
@@ -17,11 +17,6 @@
         </div>
 
 
-
-
-
-
     </div>
-
 
 @endsection

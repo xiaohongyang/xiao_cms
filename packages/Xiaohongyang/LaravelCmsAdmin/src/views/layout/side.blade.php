@@ -29,12 +29,8 @@
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active">
-            <a href="/user_center/article_type/index"><i class="fa fa-link"></i> <span>类别管理</span></a>
+            <a href="<?=route('article_type.index')?>"><i class="fa fa-link"></i> <span>类别管理</span></a>
         </li>
-        <li class="active">
-            <a href="/user_center/article/index"><i class="fa fa-link"></i> <span>文章管理</span></a>
-        </li>
-
 
         <li class="treeview">
             <a href="#"><i class="fa fa-link"></i>
@@ -52,7 +48,7 @@
         </li>
         <li class="treeview">
             <a href="#"><i class="fa fa-link"></i>
-                <span>日记</span>
+                <span>其它</span>
 
                 <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>

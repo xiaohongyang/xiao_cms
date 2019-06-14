@@ -13,6 +13,27 @@ use Xiaohongyang\LaravelCmsAdmin\Model\ArticleType;
 
 class ArticleTypeService extends BaseService
 {
+    /**
+     * ArticleTypeService constructor.
+     * @param ArticleType $model
+     */
+    public function __construct($model = null)
+    {
+        parent::__construct($model);
+    }
+
+
+    public function delByPrimaryKey($value){
+
+        $rs = false;
+        $this->setModel($this->getByPrimaryId($value));
+        if(!$this->getModel()){
+            $this->setError("数据不存在或已被删除");
+        } else {
+            $rs = $this->getModel()->delete();
+        }
+        return $rs;
+    }
 
 
 }

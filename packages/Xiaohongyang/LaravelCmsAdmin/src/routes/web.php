@@ -19,7 +19,7 @@ Route::namespace('Xiaohongyang\LaravelCmsAdmin\Controllers')->group(function(){
             Route::get("/article-type/search", 'ArticleTypeController@search')->name("article_type.search");;
             Route::any("/article-type/edit", 'ArticleTypeController@edit')->name("article_type.edit");;
             Route::get("/article-type/detail", 'ArticleTypeController@detail')->name("article_type.detail");
-            Route::get("/article-type/delete", 'ArticleTypeController@delete')->name("article_type.delete");;
+            Route::any("/article-type/delete", 'ArticleTypeController@delete')->name("article_type.delete");;
             Route::any("/article-type/create", 'ArticleTypeController@create')->name("article_type.create");
 
 

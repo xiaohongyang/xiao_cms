@@ -86,88 +86,23 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<body class="hold-transition skin-blue sidebar-mini" style="background: #eee;">
+<div class="wrapper" style="background: #eee;">
 
     <!-- Main Header -->
-    <header class="main-header">
 
-        <!-- Logo -->
-        <a href="index2.html" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>LTE</span>
-        </a>
-
-        <!-- Header Navbar -->
-
-        @component("cms_admin::layout.nav")
-        @endcomponent
-
-    </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
 
-        <!-- sidebar: style can be found in sidebar.less -->
-        @component("cms_admin::layout.side")
-        @endcomponent
-        <!-- /.sidebar -->
-    </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-
-
+    <div class="">
         <!-- Main content -->
-
-
         <!--------------------------
           | Your Page Content Here |
           -------------------------->
+        <div class="content" >
 
-        <div class="content">
-
-            <div class="box ">
-
-                <!-- Content Header (Page header) -->
-                <?php if($breadcrumb):?>
-
-                    <?php
-                        /**
-                         * @var $current \Xiaohongyang\LaravelCmsAdmin\Breadcrumb
-                         */
-                        $current = end($breadcrumb);
-                    ?>
-                    <section class="content-header box-header">
-                        <h1>
-                            <?=$current->text?>
-                            <small>Optional description</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                            <li class="active">Here</li>
-                        </ol>
-                    </section>
-                <?php else:?>
-
-                    <section class="content-header box-header">
-                        <h1>
-                            Page Header
-                            <small>Optional description</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                            <li class="active">Here</li>
-                        </ol>
-                    </section>
-                <?php endif;?>
-
-
-            </div>
             <div class="">
-
-
                 @yield("content")
             </div>
         </div>
@@ -177,17 +112,7 @@ desired effect
     <!-- /.content-wrapper -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-            Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
-    </footer>
-
     <!-- Control Sidebar -->
-
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
     immediately after the control sidebar -->
@@ -197,18 +122,15 @@ desired effect
 
 
 <!--befor body end-->
-@include("cms_admin::layout.modal")
+@include("cms_admin::layout.modal",['is_noframe' =>true])
 <!--befor body end-->
+
 
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-
 <script type="text/javascript" src="/js/xhy_fn.js"></script>
-
-
-<link rel="stylesheet" type="text/css" href="/css/admin.css">
 <script type="text/javascript" src="/js/admin_js.js"></script>
 
 
@@ -218,8 +140,6 @@ desired effect
 <!--modal js end-->
 
 <!-- datatables css and js begin -->
-<input type="hidden" class="hidden-btn-trigger-datatable-ajax-reload" onclick="$.fn.fresh_datatables()" />
-<input type="hidden" class="hidden-btn-hide-frame-modal" onclick="$.fn.hide_frame()" />
 <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <!-- datatables css and js end -->

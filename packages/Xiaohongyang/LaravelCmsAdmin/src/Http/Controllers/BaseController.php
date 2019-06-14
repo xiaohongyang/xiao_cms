@@ -19,6 +19,24 @@ class BaseController extends Controller {
 
     protected $view_name;
 
+    protected $breadcrumb;
+
+    /**
+     * @return mixed
+     */
+    public function getBreadcrumb()
+    {
+        return $this->breadcrumb;
+    }
+
+    /**
+     * @param mixed $breadcrumb
+     */
+    public function setBreadcrumb($breadcrumb)
+    {
+        $this->breadcrumb = $breadcrumb;
+    }
+
     /**
      * @return mixed
      */
@@ -51,7 +69,11 @@ class BaseController extends Controller {
         $this->manager = $manager;
     }
 
-    public function view( $params = []) {
+    public function view( $params = [], $view_name=null) {
+
+        if(!empty($view_name)){
+            return view('cms_admin::' . $view_name, $params);
+        }
 
         $action = \Route::current()->getAction();
         $arr = explode('@', $action['controller']);
@@ -61,10 +83,38 @@ class BaseController extends Controller {
         if (empty($view_name)) {
             $view_name = $arr[1];
         }
+
         $controller = last($controllerArr);
         $controller_name = str_replace('Controller', '', $controller);
         $view_path = 'cms_admin::' . $controller_name . '.' . $view_name;
+
+        if($this->getBreadcrumb()){
+            $params['breadcrumb'] = $this->getBreadcrumb();
+        }
+
         return view($view_path, $params);
+    }
+
+
+    /**
+     * 返回json响应
+     * @user : xiaohongyang 258082291@qq.com
+     * @param $status
+     * @param $message
+     * @param array $data
+     * @param int $code
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function json_result($status, $message, $data=[], $code=0){
+
+        $result = [
+            'status' => $status,
+            'message' => $message,
+            'data' => $data,
+            'code' => $code
+        ];
+
+        return response()->json($result);
     }
 
 }

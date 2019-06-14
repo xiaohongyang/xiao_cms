@@ -3,6 +3,7 @@
 namespace Xiaohongyang\LaravelCmsAdmin\Model;
 
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
 
 
@@ -19,9 +20,13 @@ use Illuminate\Support\Facades\Log;
 class ArticleType extends BaseModel
 {
 
+    use SoftDeletes;
+
+
     protected $table = "cms_article_type";
 
     protected $primaryKey = "id";
+
 
     /**
      * 默认值
